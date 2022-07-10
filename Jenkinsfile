@@ -1,38 +1,34 @@
+def myhostname = 'I do not know the host name'
+
 pipeline {
   agent {
     node {
       label 'winserv1'
     }
   }
-/*
-  environment {
-    MYHOSTNAME = ''
-  }
-*/
+
   stages {
-    stage('gethostname') {
+    stage('1 - gethostname') {
       steps {
-        script {
-          //echo "Print HOSTNAME Env varaible before script executed ${env.MYHOSTNAME}"
+        echo "Print myhostname Env varaible before script executed ${myhostname}"
+        script {          
           //def result = powershell returnStdout: true, script: '[System.NET.DNS]::GetHostByName($null)'
           def result = powershell returnStdout: true, script: 'hostname' 
-          print result
-          stash 'result'
-          //MYHOSTNAME = result
-          //env.MYHOSTNAME = MYHOSTNAME
-          //echo "Print HOSTNAME Env varaible after script executed ${env.MYHOSTNAME}"
+          println "hostname info within script block: ${result}"
+          myhostname = result.trim()
+          //stash 'result'
+          echo "Print myhostname Env varaible within script in stage 1 ${myhostname}"
         }
       }
     }
     
-    stage('test var') {
+    stage('2 - test var') {
       steps {
-        unstash 'result'
-        print result
+        echo "Print myhostname Env varaible within steps in stage 2 ${myhostname}"
       }
     }
 
-    stage('createDir') {
+    stage('3 - createDir') {
       steps {
         powershell(script: '[system.io.directory]::CreateDirectory("c:\\test5")', returnStatus: true, returnStdout: true)
       }
