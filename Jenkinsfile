@@ -11,8 +11,8 @@ pipeline {
 		    script {
 			    def result = powershell returnStdout:true, script: '[System.NET.DNS]::GetHostByName($null)'
 			    print result
-          env.MYHOSTNAME = result
-          echo "Print HOSTNAME Env varaible ${env.MYHOSTNAME}"
+			    env.MYHOSTNAME = result
+			    echo "Print HOSTNAME Env varaible ${env.MYHOSTNAME}"
 		    }
       }
     }
