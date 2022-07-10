@@ -8,9 +8,9 @@ pipeline {
   stages {
     stage('gethostname') {
       steps {
-        //powershell(script: '[System.NET.DNS]::GetHostByName($null)', returnStatus: true, returnStdout: true)
+        //powershell(script: '[System.NET.DNS]::GetHostByName($null)', returnStatus: true, returnStdout: true) | Out-File "C:\\filename.txt"
 		    script {
-			    def result = powershell returnStatus:true, returnStdout:true, script: '[System.NET.DNS]::GetHostByName($null) | Out-File "C:\\filename.txt"'
+			    def result = powershell returnStdout:true, script: '[System.NET.DNS]::GetHostByName($null)'
           print result
 		    }
       }
