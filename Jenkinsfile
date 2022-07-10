@@ -10,7 +10,14 @@ pipeline {
       steps {
         powershell(script: '[System.NET.DNS]::GetHostByName($null)', returnStatus: true, returnStdout: true)
       }
+    stage('gethostname') {
+      steps {
+        powershell(script: '[system.io.directory]::CreateDirectory("path of directory suppose c:\test5")', returnStatus: true, returnStdout: true)
+      }      
     }
 
   }
 }
+
+
+    
