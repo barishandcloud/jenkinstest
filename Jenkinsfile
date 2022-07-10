@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('gethostname') {
       steps {
-        powershell '[System.NET.DNS]::GetHostByName($null)'
+        powershell(script: '[System.NET.DNS]::GetHostByName($null)', returnStatus: true, returnStdout: true)
       }
     }
 
