@@ -17,10 +17,18 @@ pipeline {
           //def result = powershell returnStdout: true, script: '[System.NET.DNS]::GetHostByName($null)'
           def result = powershell returnStdout: true, script: 'hostname' 
           print result
-          MYHOSTNAME = result
-          env.MYHOSTNAME = MYHOSTNAME
-          echo "Print HOSTNAME Env varaible after script executed ${env.MYHOSTNAME}"
+          stash 'result'
+          //MYHOSTNAME = result
+          //env.MYHOSTNAME = MYHOSTNAME
+          //echo "Print HOSTNAME Env varaible after script executed ${env.MYHOSTNAME}"
         }
+      }
+    }
+    
+    stage('test var') {
+      steps {
+        unstash 'result'
+        print result
       }
     }
 
