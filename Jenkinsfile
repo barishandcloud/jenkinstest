@@ -4,16 +4,16 @@ pipeline {
       label 'winserv1'
     }
   }
-
+/*
   environment {
     MYHOSTNAME = ''
   }
-
+*/
   stages {
     stage('gethostname') {
       steps {
         script {
-          echo "Print HOSTNAME Env varaible before script executed ${env.MYHOSTNAME}"
+          //echo "Print HOSTNAME Env varaible before script executed ${env.MYHOSTNAME}"
           //def result = powershell returnStdout: true, script: '[System.NET.DNS]::GetHostByName($null)'
           def result = powershell returnStdout: true, script: 'hostname' 
           print result
