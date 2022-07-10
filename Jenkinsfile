@@ -10,7 +10,9 @@ pipeline {
 
     stage('gethostname') {
       steps {
-        powershell(script: '[System.NET.DNS]::GetHostByName($null)', returnStatus: true, returnStdout: true)
+        //powershell(script: '[System.NET.DNS]::GetHostByName($null)', returnStatus: true, returnStdout: true)
+        def msg = powershell(returnStdout: true, script: '[System.NET.DNS]::GetHostByName($null)')
+        println msg
       }
     }
 
@@ -21,5 +23,5 @@ pipeline {
     }
 
   }
-  
+
 }
