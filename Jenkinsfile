@@ -14,7 +14,8 @@ pipeline {
       steps {
         script {
           echo "Print HOSTNAME Env varaible before script executed ${env.MYHOSTNAME}"
-          def result = powershell returnStdout: true, script: '[System.NET.DNS]::GetHostByName($null)'
+          //def result = powershell returnStdout: true, script: '[System.NET.DNS]::GetHostByName($null)'
+          def result = powershell returnStdout: true, script: 'hostname' 
           print result
           MYHOSTNAME = result
           env.MYHOSTNAME = MYHOSTNAME
